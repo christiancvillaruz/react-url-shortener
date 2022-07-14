@@ -11,8 +11,8 @@ const ShortLink = ({ inputValue }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios(`https://api.shrtco.de/v2/shorten?url=${inputValue}`);
-      setShortLink(res.data.result.full_short_link);
+      const res = await axios(`https://v.gd/create.php?format=json&url=${inputValue}`);
+      setShortLink(res.data.shorturl);
     }
     catch (error) {
       setError(error);
@@ -49,7 +49,7 @@ const ShortLink = ({ inputValue }) => {
     <>
       {shortLink && (
         <div className="font-quicksand flex items-center justify-between">
-          <p className="p-2 m-4 border-2 border-amber-400">{ shortLink }</p>
+          <p className="p-2 m-4 border-2 border-amber-400"><a href={shortLink} target="_blank">{shortLink}</a></p>
           <CopyToClipboard 
             text={shortLink}
             onCopy = { () => setLinkCopy(true) }
